@@ -2,6 +2,11 @@ import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap, Calendar, MapPin, Building2 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
+type Client = {
+  name: string;
+  description: string;
+};
+
 type TimelineItem = {
   id: string;
   type: 'work' | 'education';
@@ -9,9 +14,10 @@ type TimelineItem = {
   company: string;
   period: string;
   location?: string;
+  employmentType?: 'Full-time' | 'Contract' | 'Internship';
   description?: string[];
   skills?: string[];
-  logo?: string; // Placeholder for image path
+  client?: Client;
 };
 
 const experienceData: TimelineItem[] = [
@@ -20,91 +26,134 @@ const experienceData: TimelineItem[] = [
     type: 'work',
     role: 'Founding Engineer',
     company: 'Famaash',
-    period: 'Aug 2024 - Present',
+    period: 'Oct 2024 - Present',
     location: 'United States · Remote',
+    employmentType: 'Full-time',
     description: [
-      'Single-handedly developing the backend for an MVP for the entertainment industry in the United States.',
-      'Leveraged Cursor and Claude Sonnet to expedite the MVP’s development, taking part in the entire product lifecycle from R&D to decision-making.'
-    ]
-  },
-  {
-    id: 'betacraft',
-    type: 'work',
-    role: 'Technical Lead',
-    company: 'BetaCraft',
-    period: 'Jan 2021 - Present',
-    location: 'Pune, Maharashtra, India',
-    description: [
-      'Client - ReadyTech: Working as a full-stack developer to build an application portal for students in Australia using Ruby on Rails and Next.js/React.',
-      'Client - Mocingbird: Created a course recommendation feature utilizing a binary tree for efficient search and filter capabilities.',
-      'Engineered a multi-tenant rules engine as a USP, attracting 2 new clients.',
-      'Mentored 16 team members, achieving a 30% reduction in onboarding time.',
-      'Automated the platform\'s Rules Engine, reducing developer effort by 70%.'
+      'Building an MVP for payroll, expense management and everything a film production company needs.',
+      'Sole engineer responsible for the entire backend stack.'
     ],
-    skills: ['Ruby on Rails', 'PostgreSQL', 'Next.js', 'React']
+    skills: ['Ruby on Rails', 'PostgreSQL', 'System Design']
   },
   {
-    id: 'spark',
+    id: 'betacraft-readytech',
     type: 'work',
     role: 'Senior Software Engineer',
-    company: 'Spark Solutions - Ecommerce Experts',
-    period: 'Apr 2023 - Oct 2024',
-    location: 'Poland · Remote',
+    company: 'BetaCraft Pvt Ltd',
+    period: 'Jan 2025 - Present',
+    location: 'Remote',
+    employmentType: 'Contract',
+    client: {
+      name: 'ReadyTech (EdTech, Australia)',
+      description: 'Working on a new "Admissions" application for ReadyTech\'s EdTech platform. Integrating functionality from their legacy 15-year-old Rails application into the new system.'
+    },
     description: [
-      'Client - Fullscript: Worked on the backend of a Ruby on Rails monolith with a React frontend.',
-      'Conducted comprehensive unit testing for backend and frontend to enhance code reliability.',
-      'Developed GraphQL queries and mutations for smooth backend-frontend integration.'
+      'Contributing to both the new repo and the existing legacy codebase simultaneously.'
     ],
-    skills: ['Ruby on Rails', 'GraphQL']
+    skills: ['Ruby on Rails', 'Next.js', 'React', 'PostgreSQL']
+  },
+  {
+    id: 'fullscript',
+    type: 'work',
+    role: 'Senior Software Engineer',
+    company: 'Fullscript',
+    period: 'Apr 2023 - Oct 2024',
+    location: 'Remote',
+    employmentType: 'Contract',
+    description: [
+      'Optimized wholesale checkout process to improve user experience and operational efficiency.',
+      'Optimized core GraphQL search query, cutting response time from 20 seconds to 2 seconds.',
+      'Managed transfer of Emerson Ecologies\' data to newly developed app with robust error handling.',
+      'Wrote optimized SQL queries for data migration, reducing time from 1 hour to 5 minutes.'
+    ],
+    skills: ['Ruby on Rails', 'GraphQL', 'PostgreSQL', 'React']
   },
   {
     id: 'vendo',
     type: 'work',
-    role: 'Ruby on Rails Developer',
+    role: 'Senior Software Engineer',
     company: 'Vendo',
-    period: 'Jul 2022 - Jun 2023',
-    location: 'Poland · Remote',
+    period: 'Jun 2022 - Apr 2023',
+    location: 'Remote',
+    employmentType: 'Contract',
     description: [
-      'Worked on the integration of third-party APIs and customization of the Spree engine, boosting average order value by 15%.',
-      'Improved application performance by 30% via code refactoring and database optimization.'
+      'Spearheaded integration of third-party APIs and Spree engine customization, resulting in 15% increase in average order value.',
+      'Enhanced application performance by 30% through code refactoring and database optimization.'
     ],
-    skills: ['Ruby on Rails', 'Ruby']
+    skills: ['Ruby on Rails', 'Spree Commerce', 'API Integration']
+  },
+  {
+    id: 'betacraft-mockingbird',
+    type: 'work',
+    role: 'Tech Lead',
+    company: 'BetaCraft Pvt Ltd',
+    period: 'Jan 2021 - Jun 2022',
+    location: 'Pune, India',
+    employmentType: 'Full-time',
+    client: {
+      name: 'Mockingbird',
+      description: 'Developed Ruby on Rails app enhancing US doctors\' licensing processes with 40% rise in B2B applications.'
+    },
+    description: [
+      'Cut memory usage by ~45% through improved coding practices and algorithm optimization.',
+      'Built course recommendation feature using binary tree data structure for efficient searching.',
+      'Designed multi-tenant rules engine USP, instrumental in attracting new clients.',
+      'Practiced TDD and increased test coverage by 70%.',
+      'Facilitated code reviews and participated in daily stand-ups, sprint planning.'
+    ],
+    skills: ['Ruby on Rails', 'PostgreSQL', 'TDD', 'System Design']
   },
   {
     id: 'infosys',
     type: 'work',
     role: 'System Engineer',
     company: 'Infosys',
-    period: 'Sep 2019 - Jan 2021',
-    location: 'Pune, Maharashtra, India',
-    description: []
+    period: 'Jun 2019 - Jan 2021',
+    location: 'Pune, India',
+    employmentType: 'Full-time',
+    description: [
+      'Completed internship working on internal projects using C#, Python, and Ruby.'
+    ],
+    skills: ['C#', 'Python', 'Ruby']
   },
   {
     id: 'aktu',
     type: 'education',
-    role: 'Bachelor of Technology - Computer Science',
-    company: 'Dr. A.P.J. Abdul Kalam Technical University',
-    period: '2015 – 2019',
-    description: ['Grade: 70%']
-  },
-  {
-    id: 'aps',
-    type: 'education',
-    role: 'Senior Secondary',
-    company: 'Army Public School (APS)',
-    period: 'Completed',
-    description: ['Grade: 90%']
+    role: 'Bachelor\'s in Computer Science & Engineering',
+    company: 'A.P.J. Abdul Kalam Technical University',
+    period: 'Jul 2015 - Jul 2019',
+    description: []
   }
 ];
+
+function ClientBadge({ client }: { client: Client }) {
+  return (
+    <div className="mb-4 flex items-start gap-3 p-3 bg-anthropic-accent/5 border border-anthropic-accent/10 rounded-lg">
+      <div className="w-8 h-8 rounded-md bg-anthropic-accent/10 border border-anthropic-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+        <Building2 size={16} className="text-anthropic-accent" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="text-xs uppercase tracking-wider text-anthropic-secondary/60">Client</span>
+          <div className="h-px flex-1 bg-anthropic-accent/10" />
+        </div>
+        <p className="font-medium text-anthropic-text text-sm mt-1">{client.name}</p>
+        <p className="text-sm text-anthropic-secondary mt-1 leading-relaxed">
+          {client.description}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export default function Experience() {
   return (
     <section className="py-20">
       <h2 className="text-3xl font-serif font-medium mb-12 border-b border-black/5 pb-6">Experience & Education</h2>
-      
+
       <div className="relative border-l border-black/10 ml-3 md:ml-6 space-y-12">
         {experienceData.map((item, index) => (
-          <motion.div 
+          <motion.div
             key={item.id}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -121,9 +170,23 @@ export default function Experience() {
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-              <h3 className="text-xl font-serif font-medium text-anthropic-text">
-                {item.role}
-              </h3>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="text-xl font-serif font-medium text-anthropic-text">
+                  {item.role}
+                </h3>
+                {item.employmentType && (
+                  <span className={cn(
+                    "text-xs px-2 py-0.5 rounded-full font-medium",
+                    item.employmentType === 'Full-time'
+                      ? "bg-green-100 text-green-700"
+                      : item.employmentType === 'Contract'
+                      ? "bg-blue-100 text-blue-700"
+                      : "bg-gray-100 text-gray-700"
+                  )}>
+                    {item.employmentType}
+                  </span>
+                )}
+              </div>
               <div className="flex items-center gap-2 text-sm text-anthropic-secondary/80 font-medium mt-1 sm:mt-0">
                 <Calendar size={14} />
                 {item.period}
@@ -142,6 +205,11 @@ export default function Experience() {
                 </div>
               )}
             </div>
+
+            {/* Client Thread */}
+            {item.client && (
+              <ClientBadge client={item.client} />
+            )}
 
             {item.description && item.description.length > 0 && (
               <ul className="list-disc list-outside ml-4 space-y-2 text-anthropic-secondary leading-relaxed mb-4">
@@ -166,4 +234,3 @@ export default function Experience() {
     </section>
   );
 }
-
