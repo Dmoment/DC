@@ -1,0 +1,122 @@
+---
+title: "Mastering Singleton Pattern in Ruby"
+date: "2024-05-01"
+description: "A deep dive into Ruby's Singleton design pattern, its implementation, and how it works under the hood."
+tags: ["Ruby", "Design Patterns"]
+---
+
+# Singleton Design Pattern
+
+The singleton design pattern restricts class instantiation to one single instance. This proves useful when coordinating actions across a system requires exactly one object.
+
+## Core Principles
+
+The pattern works through three key mechanisms:
+
+1. **Private Constructor**: Prevents external class instantiation
+2. **Private Static Instance**: Maintains a single class instance internally
+3. **Public Static Method**: Provides global access, creating the instance if needed or returning the existing one
+
+This approach suits database connection management and application settings handling, though it introduces global state that complicates testing and maintenance.
+
+## Ruby Implementation
+
+Ruby includes a built-in `Singleton` module simplifying implementation:
+
+```ruby
+require 'singleton'
+
+class ConfigurationManager
+  include Singleton
+
+  attr_accessor :settings
+
+  def initialize
+    @settings = load_default_settings
+  end
+
+  def update_settings(new_settings)
+    @settings.merge!(new_settings)
+  end
+
+  private
+
+  def load_default_settings
+    {
+      api_key: 'sample_key',
+      end_point: 'sample_point',
+      debug_mode: false
+    }
+  end
+end
+
+config_manager = ConfigurationManager.instance
+puts config_manager.settings
+
+config_manager.update_settings(debug_mode: true)
+puts config_manager.settings
+
+another_config_instance = ConfigurationManager.instance
+puts another_config_instance.settings
+```
+
+### Key Observations
+
+Attempting `ConfigurationManager.new` raises NoMethodError because the constructor becomes private. Access requires the `instance` method, which ensures all references point to identical state.
+
+## Under the Hood
+
+The Singleton module implementation involves several components:
+
+### The `included` Callback
+
+When included, Singleton triggers its `included` method automatically:
+
+```ruby
+def included(klass)
+  super
+  klass.private_class_method :new, :allocate
+  klass.extend SingletonClassMethods
+  Singleton.__init__(klass)
+end
+```
+
+This accomplishes three tasks: making instantiation private, extending with class methods, and initializing singleton infrastructure.
+
+### The `__init__` Method
+
+Initialization sets up two critical class variables:
+
+```ruby
+def __init__(klass)
+  klass.instance_eval {
+    @singleton__instance__ = nil
+    @singleton__mutex__ = Thread::Mutex.new
+  }
+  klass
+end
+```
+
+The `@singleton__instance__` holds the sole instance, while `@singleton__mutex__` ensures thread-safe creation in concurrent environments.
+
+### Instance Access
+
+The `instance` method implements lazy initialization with thread safety:
+
+```ruby
+def instance
+  @singleton__instance__ || @singleton__mutex__.synchronize {
+    @singleton__instance__ ||= new
+  }
+end
+```
+
+It checks for existing instances and creates one if needed, all under mutex protection.
+
+### Protection Mechanisms
+
+Singleton overrides `clone` and `dup` to prevent duplication, raising TypeError to preserve uniqueness.
+
+## Metaclass Syntax
+
+The expression `class << Singleton` defines methods directly on Singleton itself (its metaclass), making them accessible as `Singleton.method_name` rather than instance methods. These don't automatically become class methods in including classes.

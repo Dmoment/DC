@@ -1,0 +1,54 @@
+---
+title: "Preventing Concurrent Migrations in a Distributed Environment"
+date: "2023-05-19"
+description: "How to handle database migrations safely when multiple applications share a single database."
+tags: ["Ruby on Rails", "DevOps", "Heroku"]
+---
+
+# The Problem
+
+In distributed systems where multiple applications access a shared database, simultaneous migrations create deployment conflicts. This article addresses a specific scenario involving two staging applications on Heroku.
+
+Rails uses a `schema_migration` table to track migration status. When migrations execute, they acquire advisory locks. Our team encountered `ActiveRecord::ConcurrentMigrationError` when introducing Data Manipulation Language (DML) statements that extended execution time, allowing a second app to attempt the same migration before the lock released.
+
+## The Approach
+
+The solution leverages advisory locks and environment variables to control migration execution during deployment. Only one designated application performs migrations while others skip them.
+
+## Implementation
+
+### Step 1: Create release-tasks.sh
+
+A shell script checks the `RUN_MIGRATIONS` environment variable:
+
+```bash
+#!/bin/bash
+set -e
+
+if [ "$RUN_MIGRATIONS" = "true" ]; then
+  echo "Running migrations"
+  bundle exec rake db:migrate
+else
+  echo "Skipping migrations"
+fi
+```
+
+### Step 2: Grant Permissions
+
+```bash
+chmod +x release-tasks.sh
+```
+
+### Step 3: Update Procfile
+
+```
+release: ./release-tasks.sh
+```
+
+### Step 4: Configure Environment Variables
+
+In Heroku settings, set `RUN_MIGRATIONS=true` for the primary application and leave it unset for others.
+
+## Conclusion
+
+This approach ensures stable deployments by preventing concurrent migration execution through selective enablement per application. It's a simple yet effective pattern for managing database migrations in multi-app environments sharing a single database.
