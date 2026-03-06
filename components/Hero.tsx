@@ -9,22 +9,22 @@ export default function Hero() {
       <BauhausBackground />
       
       <div className="max-w-3xl relative z-10 mx-auto w-full">
-        <motion.h1 
+        <motion.h1
           className="text-5xl md:text-7xl font-serif font-medium tracking-tight mb-8 text-anthropic-text"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          Building the future with code and philosophy.
+          I build things and share what I learn along the way.
         </motion.h1>
-        
-        <motion.p 
+
+        <motion.p
           className="text-xl md:text-2xl text-anthropic-secondary mb-10 leading-relaxed font-sans font-light"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
         >
-          Hi, I&apos;m Deepak Chauhan. I&apos;m an engineer passionate about building scalable systems and exploring the philosophical implications of technology.
+          Hey, I&apos;m Deepak. I love exploring the unconventional, tackling problems the hard way, and diving deep into what fascinates me. The best part of this craft? We get to command machines to do remarkable things.
         </motion.p>
 
         <motion.div
