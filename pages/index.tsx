@@ -38,18 +38,17 @@ const Home: NextPage<HomeProps> = ({ allPostsData }) => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-           <ProjectCard 
-             title="Tavus Clone"
-             description="A recreation of the Tavus landing page using Next.js, Tailwind CSS, and Framer Motion."
-             tags={['Next.js', 'Tailwind', 'Framer Motion']}
-             link="https://example.com"
-             github="https://github.com"
+           <ProjectCard
+             title="KhataTrack"
+             description="AI-powered financial management for Indian businesses. Bank statement analysis, automatic categorization, and GST-compliant invoicing."
+             tags={['AI/ML', 'Fintech', 'SaaS']}
+             link="https://khatatrack.com"
            />
-           <ProjectCard 
-             title="AI Agent Platform"
-             description="An autonomous agent platform built for enterprise scale."
-             tags={['Python', 'LangChain', 'React']}
-             link="https://example.com"
+           <ProjectCard
+             title="LensLedger"
+             description="MVP for film production companies—payroll, expense management, and more. Sole engineer on the backend."
+             tags={['Ruby on Rails', 'PostgreSQL', 'System Design']}
+             link="https://lensledger.vercel.app"
            />
         </div>
       </section>
