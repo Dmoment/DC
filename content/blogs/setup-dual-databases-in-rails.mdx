@@ -19,7 +19,11 @@ The recommended configuration includes:
 - **Backup:** 7-day retention
 - **Estimated cost:** $26.49/month
 
+![AWS RDS Instance Configuration](/images/blog/aws_rds_instance_config.png)
+
 Security group setup requires editing inbound rules to allow PostgreSQL traffic from "Anywhere IPv4."
+
+![VPC Security Group Configuration](/images/blog/vpc_security_group.png)
 
 ## Testing RDS Connection
 
@@ -27,6 +31,8 @@ Two methods are provided:
 
 1. **DBeaver GUI:** Connect using the endpoint, port 5432, master credentials
 2. **Terminal:** Use psql command with appropriate connection parameters
+
+![DBeaver Connection Setup](/images/blog/dbeaver_connection.png)
 
 After connecting, manually create the database:
 
