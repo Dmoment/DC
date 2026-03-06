@@ -1,10 +1,12 @@
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap, Calendar, MapPin, Building2 } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 type Client = {
   name: string;
-  description: string;
+  logo: string;
+  website?: string;
 };
 
 type TimelineItem = {
@@ -44,10 +46,13 @@ const experienceData: TimelineItem[] = [
     location: 'Remote',
     employmentType: 'Contract',
     client: {
-      name: 'ReadyTech (EdTech, Australia)',
-      description: 'Working on a new "Admissions" application for ReadyTech\'s EdTech platform. Integrating functionality from their legacy 15-year-old Rails application into the new system.'
+      name: 'ReadyTech',
+      logo: 'https://readytech.io/assets/Uploads/RDY_Logo_Secondary_Standard_L.png',
+      website: 'https://readytech.io'
     },
     description: [
+      'Working on a new "Admissions" application for ReadyTech\'s EdTech platform.',
+      'Integrating functionality from their legacy 15-year-old Rails application into the new system.',
       'Contributing to both the new repo and the existing legacy codebase simultaneously.'
     ],
     skills: ['Ruby on Rails', 'Next.js', 'React', 'PostgreSQL']
@@ -91,10 +96,12 @@ const experienceData: TimelineItem[] = [
     location: 'Pune, India',
     employmentType: 'Full-time',
     client: {
-      name: 'Mockingbird',
-      description: 'Developed Ruby on Rails app enhancing US doctors\' licensing processes with 40% rise in B2B applications.'
+      name: 'Mocingbird',
+      logo: 'https://mocingbird.com/wp-content/uploads/2024/11/mocingbird-logo.svg',
+      website: 'https://mocingbird.com'
     },
     description: [
+      'Developed Ruby on Rails app enhancing US doctors\' licensing processes with 40% rise in B2B applications.',
       'Cut memory usage by ~45% through improved coding practices and algorithm optimization.',
       'Built course recommendation feature using binary tree data structure for efficient searching.',
       'Designed multi-tenant rules engine USP, instrumental in attracting new clients.',
@@ -127,23 +134,34 @@ const experienceData: TimelineItem[] = [
 ];
 
 function ClientBadge({ client }: { client: Client }) {
-  return (
-    <div className="mb-4 flex items-start gap-3 p-3 bg-anthropic-accent/5 border border-anthropic-accent/10 rounded-lg">
-      <div className="w-8 h-8 rounded-md bg-anthropic-accent/10 border border-anthropic-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-        <Building2 size={16} className="text-anthropic-accent" />
+  const content = (
+    <div className="mb-4 inline-flex items-center gap-3 px-4 py-2 bg-anthropic-accent/5 border border-anthropic-accent/10 rounded-lg hover:bg-anthropic-accent/10 transition-colors">
+      <div className="w-8 h-8 rounded-md bg-white border border-black/5 flex items-center justify-center flex-shrink-0 overflow-hidden">
+        <Image
+          src={client.logo}
+          alt={`${client.name} logo`}
+          width={24}
+          height={24}
+          className="object-contain"
+          unoptimized
+        />
       </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <span className="text-xs uppercase tracking-wider text-anthropic-secondary/60">Client</span>
-          <div className="h-px flex-1 bg-anthropic-accent/10" />
-        </div>
-        <p className="font-medium text-anthropic-text text-sm mt-1">{client.name}</p>
-        <p className="text-sm text-anthropic-secondary mt-1 leading-relaxed">
-          {client.description}
-        </p>
+      <div className="flex items-center gap-2">
+        <span className="text-xs uppercase tracking-wider text-anthropic-secondary/60">Client</span>
+        <span className="font-medium text-anthropic-text text-sm">{client.name}</span>
       </div>
     </div>
   );
+
+  if (client.website) {
+    return (
+      <a href={client.website} target="_blank" rel="noopener noreferrer">
+        {content}
+      </a>
+    );
+  }
+
+  return content;
 }
 
 export default function Experience() {
