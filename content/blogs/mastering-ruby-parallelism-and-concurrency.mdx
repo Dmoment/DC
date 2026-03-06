@@ -11,13 +11,19 @@ tags: ["Ruby", "Concurrency", "Performance"]
 
 When multiple threads execute on a single-core processor, they don't advance simultaneously. Instead, the operating system rapidly switches between them, creating the illusion of parallel execution. At any given moment, different threads exist at different stages of completion—one might be halfway finished while another hasn't started.
 
+![Single Core Processor - Concurrent Execution](/images/blog/single-core-processor.png)
+
 ## Parallelism
 
 True parallelism requires multiple processors. With multi-core systems, different threads can genuinely execute at the same time. Each processor core can handle separate tasks simultaneously, enabling real progress on multiple fronts without threads waiting for their turn.
 
+![Multi-Core Processor - Parallel Execution](/images/blog/multicore-processor.png)
+
 ## Context Switching
 
 Excessive context switching reduces efficiency. The system must spend CPU cycles preserving a task's state in memory, then retrieving it later. Less frequent switching allows tasks to complete more quickly, as demonstrated by comparing rapid context switching versus uninterrupted execution.
+
+![Context Switching Between Versions](/images/blog/version_processor.png)
 
 ## Process Control Block and Thread Control Block
 
@@ -26,9 +32,13 @@ The operating system uses data structures to manage execution state:
 - **Process Control Block (PCB)**: Tracks process information including the unique identifier (PID), current state, and program counter for resuming execution
 - **Thread Control Block (TCB)**: Manages individual thread details within a process, including thread ID, state, CPU registers, and priority
 
+![Process Control Block Structure](/images/blog/process_control_block.png)
+
 ## What are Threads in Ruby
 
 Ruby threads function like separate tasks running concurrently. However, Ruby's primary implementation (MRI) has a critical limitation: the Global Interpreter Lock restricts execution so that "only one bit of the program can use the central part of Ruby at once." This contrasts with Java, which supports true parallel execution across multiple cores.
+
+![Ruby GIL Visualization](/images/blog/ruby-gel.png)
 
 ## Understanding the GIL (Global Interpreter Lock)
 
@@ -46,6 +56,10 @@ JRuby runs on the Java Virtual Machine and lacks a GIL, allowing concurrent exec
 
 True parallelism can be achieved using processes rather than threads. Each process maintains its own GIL and memory space, enabling independent parallel execution.
 
+Let's look at the CPU usage in idle state first:
+
+![CPU Usage - Idle State](/images/blog/idle-htop-process.png)
+
 ### Single-Process Implementation
 
 ```ruby
@@ -60,6 +74,10 @@ end
 ```
 
 **Results**: Average execution time approximately 8.74 seconds
+
+Here's the CPU usage with single process execution:
+
+![CPU Usage - Single Process](/images/blog/single-process.png)
 
 ### Multi-Process Implementation
 
@@ -86,6 +104,10 @@ end
 ```
 
 **Results**: Average execution time approximately 0.00037 seconds, with significantly improved CPU utilization across multiple cores.
+
+Notice how all CPU cores are now being utilized:
+
+![CPU Usage - Multi-Process Execution](/images/blog/multicore-cpu-htop.png)
 
 ## Is the Process Module a Perfect Solution?
 
