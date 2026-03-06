@@ -9,17 +9,26 @@ type Client = {
   website?: string;
 };
 
+type Product = {
+  name: string;
+  logo: string;
+  website?: string;
+};
+
 type TimelineItem = {
   id: string;
   type: 'work' | 'education';
   role: string;
   company: string;
+  companyLogo?: string;
+  companyWebsite?: string;
   period: string;
   location?: string;
   employmentType?: 'Full-time' | 'Contract' | 'Internship';
   description?: string[];
   skills?: string[];
   client?: Client;
+  product?: Product;
 };
 
 const experienceData: TimelineItem[] = [
@@ -31,6 +40,11 @@ const experienceData: TimelineItem[] = [
     period: 'Oct 2024 - Present',
     location: 'United States · Remote',
     employmentType: 'Full-time',
+    product: {
+      name: 'LensLedger',
+      logo: 'https://lensledger.vercel.app/assets/logo.png',
+      website: 'https://lensledger.vercel.app'
+    },
     description: [
       'Building an MVP for payroll, expense management and everything a film production company needs.',
       'Sole engineer responsible for the entire backend stack.'
@@ -61,10 +75,17 @@ const experienceData: TimelineItem[] = [
     id: 'fullscript',
     type: 'work',
     role: 'Senior Software Engineer',
-    company: 'Fullscript',
+    company: 'Spark Solutions',
+    companyLogo: 'https://sparksolutions.co/wp-content/themes/sparksolutions/images/logo.svg',
+    companyWebsite: 'https://sparksolutions.co',
     period: 'Apr 2023 - Oct 2024',
     location: 'Remote',
     employmentType: 'Contract',
+    client: {
+      name: 'Fullscript',
+      logo: 'https://fullscript.com/favicon.svg',
+      website: 'https://fullscript.com'
+    },
     description: [
       'Optimized wholesale checkout process to improve user experience and operational efficiency.',
       'Optimized core GraphQL search query, cutting response time from 20 seconds to 2 seconds.',
@@ -77,10 +98,17 @@ const experienceData: TimelineItem[] = [
     id: 'vendo',
     type: 'work',
     role: 'Senior Software Engineer',
-    company: 'Vendo',
+    company: 'Spark Solutions',
+    companyLogo: 'https://sparksolutions.co/wp-content/themes/sparksolutions/images/logo.svg',
+    companyWebsite: 'https://sparksolutions.co',
     period: 'Jun 2022 - Apr 2023',
     location: 'Remote',
     employmentType: 'Contract',
+    product: {
+      name: 'Vendo',
+      logo: 'https://www.getvendo.com/favicon.ico',
+      website: 'https://www.getvendo.com'
+    },
     description: [
       'Spearheaded integration of third-party APIs and Spree engine customization, resulting in 15% increase in average order value.',
       'Enhanced application performance by 30% through code refactoring and database optimization.'
@@ -135,7 +163,7 @@ const experienceData: TimelineItem[] = [
 
 function ClientBadge({ client }: { client: Client }) {
   const content = (
-    <div className="mb-4 inline-flex items-center gap-3 px-4 py-2 bg-anthropic-accent/5 border border-anthropic-accent/10 rounded-lg hover:bg-anthropic-accent/10 transition-colors">
+    <div className="inline-flex items-center gap-3 px-4 py-2 bg-anthropic-accent/5 border border-anthropic-accent/10 rounded-lg hover:bg-anthropic-accent/10 transition-colors">
       <div className="w-8 h-8 rounded-md bg-white border border-black/5 flex items-center justify-center flex-shrink-0 overflow-hidden">
         <Image
           src={client.logo}
@@ -156,6 +184,37 @@ function ClientBadge({ client }: { client: Client }) {
   if (client.website) {
     return (
       <a href={client.website} target="_blank" rel="noopener noreferrer">
+        {content}
+      </a>
+    );
+  }
+
+  return content;
+}
+
+function ProductBadge({ product }: { product: Product }) {
+  const content = (
+    <div className="inline-flex items-center gap-3 px-4 py-2 bg-purple-50 border border-purple-100 rounded-lg hover:bg-purple-100 transition-colors">
+      <div className="w-8 h-8 rounded-md bg-white border border-black/5 flex items-center justify-center flex-shrink-0 overflow-hidden">
+        <Image
+          src={product.logo}
+          alt={`${product.name} logo`}
+          width={24}
+          height={24}
+          className="object-contain"
+          unoptimized
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-xs uppercase tracking-wider text-purple-400">Product</span>
+        <span className="font-medium text-anthropic-text text-sm">{product.name}</span>
+      </div>
+    </div>
+  );
+
+  if (product.website) {
+    return (
+      <a href={product.website} target="_blank" rel="noopener noreferrer">
         {content}
       </a>
     );
@@ -213,8 +272,27 @@ export default function Experience() {
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-anthropic-secondary mb-4">
               <div className="flex items-center gap-1.5 font-medium text-anthropic-text/80">
-                <Building2 size={14} />
-                {item.company}
+                {item.companyLogo ? (
+                  <div className="w-5 h-5 rounded overflow-hidden flex items-center justify-center bg-white border border-black/5">
+                    <Image
+                      src={item.companyLogo}
+                      alt={`${item.company} logo`}
+                      width={16}
+                      height={16}
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                ) : (
+                  <Building2 size={14} />
+                )}
+                {item.companyWebsite ? (
+                  <a href={item.companyWebsite} target="_blank" rel="noopener noreferrer" className="hover:text-anthropic-accent transition-colors">
+                    {item.company}
+                  </a>
+                ) : (
+                  item.company
+                )}
               </div>
               {item.location && (
                 <div className="flex items-center gap-1.5">
@@ -224,9 +302,12 @@ export default function Experience() {
               )}
             </div>
 
-            {/* Client Thread */}
-            {item.client && (
-              <ClientBadge client={item.client} />
+            {/* Client & Product Badges */}
+            {(item.client || item.product) && (
+              <div className="flex flex-wrap gap-3 mb-4">
+                {item.client && <ClientBadge client={item.client} />}
+                {item.product && <ProductBadge product={item.product} />}
+              </div>
             )}
 
             {item.description && item.description.length > 0 && (
