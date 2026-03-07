@@ -9,16 +9,16 @@ export default function Footer() {
         </div>
         
         <div className="flex gap-6">
-          <a href="#" className="text-anthropic-secondary hover:text-anthropic-text transition-colors">
+          <a href="https://github.com/Dmoment" target="_blank" rel="noopener noreferrer" className="text-anthropic-secondary hover:text-anthropic-text transition-colors">
             <Github size={20} />
           </a>
-          <a href="#" className="text-anthropic-secondary hover:text-anthropic-text transition-colors">
+          <a href="https://www.linkedin.com/in/deepak-chauhan-a3426b11a/" target="_blank" rel="noopener noreferrer" className="text-anthropic-secondary hover:text-anthropic-text transition-colors">
             <Linkedin size={20} />
           </a>
-          <a href="#" className="text-anthropic-secondary hover:text-anthropic-text transition-colors">
+          <a href="https://x.com/rishudc119" target="_blank" rel="noopener noreferrer" className="text-anthropic-secondary hover:text-anthropic-text transition-colors">
             <Twitter size={20} />
           </a>
-          <a href="mailto:hello@example.com" className="text-anthropic-secondary hover:text-anthropic-text transition-colors">
+          <a href="mailto:rishudc119@gmail.com" className="text-anthropic-secondary hover:text-anthropic-text transition-colors">
             <Mail size={20} />
           </a>
         </div>
