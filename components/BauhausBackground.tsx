@@ -1,52 +1,278 @@
-import { motion } from 'framer-motion';
+import { motion, useAnimationFrame } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+
+// Floating code/math symbols
+const symbols = ['{ }', '< />', '( )', '[ ]', '&&', '||', '=>', '::'];
+const mathSymbols = ['\u222B', '\u2211', '\u221E', '\u03C0', '\u0394', '\u03BB', '\u2207', '\u2202'];
+
+// Particle for the network effect
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+}
 
 export default function BauhausBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particlesRef = useRef<Particle[]>([]);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const timeRef = useRef(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Initialize particles
+    const particleCount = 50;
+    particlesRef.current = Array.from({ length: particleCount }, () => ({
+      x: Math.random() * canvas.offsetWidth,
+      y: Math.random() * canvas.offsetHeight,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 2 + 1,
+    }));
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    };
+
+    canvas.addEventListener('mousemove', handleMouseMove);
+
+    let animationId: number;
+
+    const animate = () => {
+      if (!ctx || !canvas) return;
+
+      const width = canvas.offsetWidth;
+      const height = canvas.offsetHeight;
+
+      ctx.clearRect(0, 0, width, height);
+      timeRef.current += 0.01;
+
+      // Draw sine wave
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(200, 100, 80, 0.15)';
+      ctx.lineWidth = 2;
+      for (let x = 0; x < width; x += 2) {
+        const y = height * 0.3 + Math.sin(x * 0.01 + timeRef.current) * 40 + Math.sin(x * 0.02 + timeRef.current * 1.5) * 20;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Draw second wave (phase shifted)
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(100, 100, 120, 0.1)';
+      for (let x = 0; x < width; x += 2) {
+        const y = height * 0.7 + Math.cos(x * 0.015 + timeRef.current * 0.8) * 30 + Math.sin(x * 0.008 + timeRef.current) * 50;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Draw Lissajous curve
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(200, 100, 80, 0.08)';
+      ctx.lineWidth = 1.5;
+      const centerX = width * 0.75;
+      const centerY = height * 0.5;
+      const a = 3, b = 4;
+      for (let t = 0; t < Math.PI * 2; t += 0.02) {
+        const x = centerX + Math.sin(a * t + timeRef.current) * 80;
+        const y = centerY + Math.sin(b * t) * 80;
+        if (t === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Draw particles and connections
+      const particles = particlesRef.current;
+      particles.forEach((particle, i) => {
+        // Update position
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Bounce off walls
+        if (particle.x < 0 || particle.x > width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > height) particle.vy *= -1;
+
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(60, 60, 70, 0.3)';
+        ctx.fill();
+
+        // Draw connections
+        particles.forEach((other, j) => {
+          if (i >= j) return;
+          const dx = particle.x - other.x;
+          const dy = particle.y - other.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(other.x, other.y);
+            ctx.strokeStyle = `rgba(200, 100, 80, ${0.15 * (1 - distance / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        });
+      });
+
+      // Draw orbital rings
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(100, 100, 120, 0.08)';
+      ctx.lineWidth = 1;
+      ctx.ellipse(width * 0.15, height * 0.4, 100, 40, timeRef.current * 0.2, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.ellipse(width * 0.15, height * 0.4, 100, 40, timeRef.current * 0.2 + Math.PI / 3, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.ellipse(width * 0.15, height * 0.4, 100, 40, timeRef.current * 0.2 + (2 * Math.PI) / 3, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Draw orbiting dot
+      const orbitX = width * 0.15 + Math.cos(timeRef.current * 2) * 100;
+      const orbitY = height * 0.4 + Math.sin(timeRef.current * 2) * 40;
+      ctx.beginPath();
+      ctx.arc(orbitX, orbitY, 4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(200, 100, 80, 0.4)';
+      ctx.fill();
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden opacity-60 pointer-events-none">
-      {/* 1. Coding: The Logic/Structure (Square/Grid) */}
-      <motion.div
-        className="absolute top-10 right-10 md:top-20 md:right-20 w-40 h-40 md:w-64 md:h-64 border-[3px] border-anthropic-accent/40 rounded-none"
-        initial={{ rotate: 0, opacity: 0 }}
-        animate={{ rotate: 12, opacity: 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-      />
-       <motion.div
-        className="absolute top-20 right-5 md:top-32 md:right-10 w-12 h-12 md:w-16 md:h-16 bg-anthropic-text/5"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.5, delay: 0.5 }}
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* Canvas for physics animations */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full opacity-70"
+        style={{ pointerEvents: 'auto' }}
       />
 
-      {/* 2. Science: The Atom/Circle (Circle/Orbit) */}
-      <motion.div
-        className="absolute top-1/4 -left-10 md:-left-20 w-64 h-64 md:w-96 md:h-96 rounded-full border-[2px] border-anthropic-secondary/20"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 2.5, ease: "easeOut" }}
-      />
-      <motion.div
-        className="absolute top-1/3 left-5 md:left-10 w-16 h-16 md:w-24 md:h-24 rounded-full bg-anthropic-accent/20 mix-blend-multiply"
-        initial={{ x: -50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1.8, delay: 0.2 }}
-      />
+      {/* Floating math symbols */}
+      {mathSymbols.map((symbol, i) => (
+        <motion.div
+          key={`math-${i}`}
+          className="absolute text-2xl md:text-3xl font-light select-none"
+          style={{
+            left: `${10 + (i * 12) % 80}%`,
+            top: `${15 + (i * 17) % 70}%`,
+            color: 'rgba(200, 100, 80, 0.15)',
+          }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: [0.1, 0.2, 0.1],
+            y: [0, -10, 0],
+          }}
+          transition={{
+            duration: 4 + i * 0.5,
+            repeat: Infinity,
+            delay: i * 0.3,
+          }}
+        >
+          {symbol}
+        </motion.div>
+      ))}
 
-      {/* 3. Philosophy: The Abstract/Flow (Triangle/Lines) */}
-      <svg className="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 opacity-40" viewBox="0 0 200 200">
-         <motion.path
-           d="M 100 20 L 180 180 L 20 180 Z"
-           fill="none"
-           stroke="currentColor"
-           strokeWidth="2"
-           className="text-anthropic-text"
-           initial={{ pathLength: 0 }}
-           animate={{ pathLength: 1 }}
-           transition={{ duration: 3, ease: "easeInOut" }}
-         />
-      </svg>
-       
-       {/* Connecting Lines / Grid */}
-       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+      {/* Floating code symbols */}
+      {symbols.map((symbol, i) => (
+        <motion.div
+          key={`code-${i}`}
+          className="absolute text-sm md:text-base font-mono select-none"
+          style={{
+            right: `${5 + (i * 11) % 40}%`,
+            bottom: `${10 + (i * 13) % 50}%`,
+            color: 'rgba(60, 60, 70, 0.12)',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: [0.08, 0.15, 0.08],
+          }}
+          transition={{
+            duration: 3 + i * 0.4,
+            repeat: Infinity,
+            delay: i * 0.2,
+          }}
+        >
+          {symbol}
+        </motion.div>
+      ))}
+
+      {/* Binary stream effect */}
+      <motion.div
+        className="absolute right-8 top-1/4 font-mono text-xs leading-tight select-none"
+        style={{ color: 'rgba(60, 60, 70, 0.08)' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2 }}
+      >
+        {Array.from({ length: 8 }, (_, i) => (
+          <motion.div
+            key={i}
+            animate={{ opacity: [0.05, 0.12, 0.05] }}
+            transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+          >
+            {Array.from({ length: 12 }, () => Math.round(Math.random())).join('')}
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Euler's identity - subtle math equation */}
+      <motion.div
+        className="absolute bottom-20 left-10 text-lg md:text-xl font-serif italic select-none"
+        style={{ color: 'rgba(200, 100, 80, 0.1)' }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 0.15, x: 0 }}
+        transition={{ duration: 2, delay: 1 }}
+      >
+        e<sup>i\u03C0</sup> + 1 = 0
+      </motion.div>
+
+      {/* Subtle grid overlay */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+          maskImage: 'radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%)',
+        }}
+      />
     </div>
   );
 }
