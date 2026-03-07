@@ -1,4 +1,4 @@
-import { motion, useAnimationFrame } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
 // Floating code/math symbols
@@ -19,6 +19,18 @@ export default function BauhausBackground() {
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const timeRef = useRef(0);
+  const [isClient, setIsClient] = useState(false);
+  const [binaryLines, setBinaryLines] = useState<string[]>([]);
+
+  // Handle client-side only rendering to avoid hydration mismatch
+  useEffect(() => {
+    setIsClient(true);
+    setBinaryLines(
+      Array.from({ length: 8 }, () =>
+        Array.from({ length: 12 }, () => Math.round(Math.random())).join('')
+      )
+    );
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -231,24 +243,26 @@ export default function BauhausBackground() {
         </motion.div>
       ))}
 
-      {/* Binary stream effect */}
-      <motion.div
-        className="absolute right-8 top-1/4 font-mono text-xs leading-tight select-none"
-        style={{ color: 'rgba(60, 60, 70, 0.08)' }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2 }}
-      >
-        {Array.from({ length: 8 }, (_, i) => (
-          <motion.div
-            key={i}
-            animate={{ opacity: [0.05, 0.12, 0.05] }}
-            transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
-          >
-            {Array.from({ length: 12 }, () => Math.round(Math.random())).join('')}
-          </motion.div>
-        ))}
-      </motion.div>
+      {/* Binary stream effect - only render on client */}
+      {isClient && (
+        <motion.div
+          className="absolute right-8 top-1/4 font-mono text-xs leading-tight select-none"
+          style={{ color: 'rgba(60, 60, 70, 0.08)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        >
+          {binaryLines.map((line, i) => (
+            <motion.div
+              key={i}
+              animate={{ opacity: [0.05, 0.12, 0.05] }}
+              transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+            >
+              {line}
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
 
       {/* Euler's identity - subtle math equation */}
       <motion.div
