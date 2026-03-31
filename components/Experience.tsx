@@ -33,25 +33,6 @@ type TimelineItem = {
 
 const experienceData: TimelineItem[] = [
   {
-    id: 'famaash',
-    type: 'work',
-    role: 'Founding Engineer',
-    company: 'Famaash',
-    period: 'Oct 2024 - Present',
-    location: 'United States · Remote',
-    employmentType: 'Full-time',
-    product: {
-      name: 'LensLedger',
-      logo: 'https://lensledger.vercel.app/assets/logo.png',
-      website: 'https://lensledger.vercel.app'
-    },
-    description: [
-      'Building an MVP for payroll, expense management and everything a film production company needs.',
-      'Sole engineer responsible for the entire backend stack.'
-    ],
-    skills: ['Ruby on Rails', 'PostgreSQL', 'System Design']
-  },
-  {
     id: 'betacraft-readytech',
     type: 'work',
     role: 'Senior Software Engineer',
@@ -72,6 +53,25 @@ const experienceData: TimelineItem[] = [
       'Contributing to both the new repo and the existing legacy codebase simultaneously.'
     ],
     skills: ['Ruby on Rails', 'Next.js', 'React', 'PostgreSQL']
+  },
+  {
+    id: 'famaash',
+    type: 'work',
+    role: 'Founding Engineer',
+    company: 'Famaash',
+    period: 'Oct 2024 - Nov 2026',
+    location: 'United States · Remote',
+    employmentType: 'Full-time',
+    product: {
+      name: 'LensLedger',
+      logo: 'https://lensledger.vercel.app/assets/logo.png',
+      website: 'https://lensledger.vercel.app'
+    },
+    description: [
+      'Building an MVP for payroll, expense management and everything a film production company needs.',
+      'Sole engineer responsible for the entire backend stack.'
+    ],
+    skills: ['Ruby on Rails', 'PostgreSQL', 'System Design']
   },
   {
     id: 'fullscript',
