@@ -1093,42 +1093,9 @@ Every time Claude edits a `.rb` file, Rubocop auto-corrects it. Every time it ed
 
 **Clean up Playwright logs.** If you use browser automation for E2E tests, add `.playwright-mcp/` to gitignore. Those logs pile up fast.
 
-**Context budget matters.** Skill descriptions are loaded at 2% of the context window (fallback: 16,000 characters) <a href="https://docs.anthropic.com/en/docs/claude-code/skills" target="_blank" className="ref-link"><img src="/images/claude-color.svg" className="inline-icon" alt="" /> Skills</a>. Too many skills? Some get excluded. Run `/context` to check.
+**Context budget.** Skill descriptions eat into a 16,000 character budget <a href="https://docs.anthropic.com/en/docs/claude-code/skills" target="_blank" className="ref-link"><img src="/images/claude-color.svg" className="inline-icon" alt="" /> Skills</a>. I'm at 7.7% with 10 items. Keep descriptions short, front-load the trigger ("After backend changes..." not "This skill should be used when..."), and run `/context` to check usage.
 
-Here's my actual usage from this project:
-
-```
-Commands:
-  commit                       55 chars
-  create-pr                    56 chars
-  deploy                       55 chars
-  generate-api-types          159 chars
-  merge-bumps                  63 chars
-  qa-agent                      0 chars  (no description frontmatter)
-
-Skills:
-  backend-enforcer            206 chars
-  frontend-enforcer           243 chars
-  test-enforcer               190 chars
-  feature-documenter          206 chars
-
-Total:        1,233 chars
-Budget:      16,000 chars
-Usage:         7.7%
-```
-
-I'm at 7.7% of the budget with 10 items (6 commands + 4 skills). `qa-agent` contributes 0 chars because it has no `description` in frontmatter (it's only manually invoked). That leaves room for roughly 120 more average-sized descriptions. But verbose descriptions like "PROACTIVELY use this after ANY backend Ruby/Rails code is written or modified. Enforces SOLID design, OWASP security controls..." (206 chars) eat into the budget faster.
-
-**Design tips to stay within budget:**
-- Keep descriptions under 100 characters when possible
-- Front-load the trigger condition: "After backend changes..." not "This skill should be used when..."
-- Use abbreviations: "TS" instead of "TypeScript", "deps" instead of "dependencies"
-- Move detailed instructions to the skill body, not the description
-- The description is for Claude to decide *when* to invoke; the body explains *how*
-
-**Rails-specific tip:** Add a rule that reminds Claude to run `bun run generate:api` after Grape API changes. TypeScript types drifting from your Ruby entities is a common bug source.
-
-**React-specific tip:** Your frontend enforcer should check TanStack Query hook dependencies. Missing dependencies in `useQuery` cause stale data bugs that are hard to track down.
+**Update CLAUDE.md when Claude makes mistakes.** This is one of the most useful habits I've picked up. When Claude does something wrong, like querying without workspace scope or generating unused methods, I tell it to update CLAUDE.md so it doesn't repeat that mistake. Over time the file becomes a living record of your project's gotchas. I do this regularly and it compounds.
 
 ## Conclusion
 
