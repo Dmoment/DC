@@ -10,6 +10,8 @@ const navItems = [
   { name: 'Home', path: '/' },
   { name: 'Projects', path: '/projects' },
   { name: 'Blog', path: '/blog' },
+  { name: 'System Design', path: '/system-designs' },
+  { name: 'LeetCode', path: '/leetcode' },
 ];
 
 export default function Navbar() {

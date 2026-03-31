@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote';
 import Layout from '../../components/Layout';
 import { getAllPostIds, getPostData } from '../../lib/mdx';
 import { format } from 'date-fns';
+import remarkGfm from 'remark-gfm';
 
 interface BlogPostProps {
   source: any;
@@ -49,8 +50,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
   const postData = await getPostData(params.slug);
-  const mdxSource = await serialize(postData.content);
-  
+  const mdxSource = await serialize(postData.content, {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+    },
+  });
+
   return {
     props: {
       source: mdxSource,

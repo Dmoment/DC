@@ -1,0 +1,106 @@
+---
+title: "Designing a URL Shortener"
+date: "2024-01-15"
+description: "Learn how to design a scalable URL shortening service like bit.ly or TinyURL, covering key components, database design, and scaling strategies."
+tags: ["System Design", "Scalability", "Database"]
+difficulty: "Medium"
+category: "Web Services"
+---
+
+## Problem Statement
+
+Design a URL shortening service like bit.ly or TinyURL that takes a long URL and returns a much shorter URL.
+
+## Functional Requirements
+
+1. Given a URL, generate a shorter and unique alias
+2. When users access the short URL, redirect them to the original URL
+3. Users should be able to pick a custom short link (optional)
+4. Links will expire after a default timespan (optional)
+
+## Non-Functional Requirements
+
+1. High availability - system should be highly available
+2. Low latency - URL redirection should happen in real-time
+3. Shortened links should not be predictable
+
+## Capacity Estimation
+
+### Traffic estimates
+- Assuming 500M new URL shortenings per month
+- Read:Write ratio = 100:1
+- 500M * 100 = 50B redirections per month
+
+### Storage estimates
+- Storing each URL for 5 years
+- 500M * 12 * 5 = 30 billion URLs
+- Each object ~500 bytes = 15 TB storage
+
+## System API Design
+
+```
+createURL(api_key, original_url, custom_alias=None, expiry_date=None)
+deleteURL(api_key, url_key)
+```
+
+## Database Design
+
+We need to store billions of records with no relationships between objects. A NoSQL database like DynamoDB or Cassandra would be a good choice.
+
+### URL Table
+| Field | Type |
+|-------|------|
+| hash (PK) | varchar(7) |
+| original_url | varchar(512) |
+| creation_date | datetime |
+| expiration_date | datetime |
+| user_id | int |
+
+## URL Encoding
+
+We can use Base62 encoding [a-zA-Z0-9] for generating short URLs.
+
+With 7 characters, we can generate 62^7 = ~3.5 trillion unique strings.
+
+### Approaches:
+
+1. **MD5 Hash** - Generate MD5 hash and take first 7 characters
+2. **Counter-based** - Use a distributed counter service
+3. **Key Generation Service (KGS)** - Pre-generate keys and store in database
+
+## High-Level Architecture
+
+```
+┌─────────┐     ┌──────────────┐     ┌─────────────┐
+│ Client  │────▶│ Load Balancer│────▶│ App Servers │
+└─────────┘     └──────────────┘     └─────────────┘
+                                            │
+                    ┌───────────────────────┼───────────────────────┐
+                    │                       │                       │
+                    ▼                       ▼                       ▼
+            ┌──────────────┐       ┌──────────────┐       ┌──────────────┐
+            │    Cache     │       │   Database   │       │     KGS      │
+            │   (Redis)    │       │  (Cassandra) │       │   Service    │
+            └──────────────┘       └──────────────┘       └──────────────┘
+```
+
+## Caching Strategy
+
+- Use Redis/Memcached for caching frequently accessed URLs
+- Cache eviction policy: LRU (Least Recently Used)
+- Cache size: 20% of daily traffic
+
+## Scaling Considerations
+
+1. **Database Sharding** - Range-based or hash-based partitioning on the URL key
+2. **Replication** - Master-slave replication for high availability
+3. **Load Balancing** - Round robin or least connections
+4. **CDN** - For global distribution and low latency
+
+## Analytics (Optional)
+
+Track metrics like:
+- Total clicks
+- Geographic distribution
+- Referrer information
+- Browser/device statistics
