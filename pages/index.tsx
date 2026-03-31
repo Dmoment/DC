@@ -54,6 +54,17 @@ const Home: NextPage<HomeProps> = ({ allPostsData }) => {
       </section>
 
       <section className="py-20">
+        <h2 className="text-3xl font-serif font-medium mb-12 border-b border-black/5 pb-6">GitHub Activity</h2>
+        <a href="https://github.com/Dmoment" target="_blank" rel="noopener noreferrer">
+          <img
+            src="https://ghchart.rshah.org/D97757/Dmoment"
+            alt="Deepak's GitHub contribution chart"
+            style={{ width: '100%' }}
+          />
+        </a>
+      </section>
+
+      <section className="py-20">
         <div className="flex justify-between items-end mb-12 border-b border-black/5 pb-6">
           <h2 className="text-3xl font-serif font-medium">Recent Writings</h2>
           <Link href="/blog">
