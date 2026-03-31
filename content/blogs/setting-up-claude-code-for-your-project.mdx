@@ -1095,6 +1095,8 @@ Every time Claude edits a `.rb` file, Rubocop auto-corrects it. Every time it ed
 
 **Context budget.** Skill descriptions eat into a 16,000 character budget <a href="https://docs.anthropic.com/en/docs/claude-code/skills" target="_blank" className="ref-link"><img src="/images/claude-color.svg" className="inline-icon" alt="" /> Skills</a>. I'm at 7.7% with 10 items. Keep descriptions short, front-load the trigger ("After backend changes..." not "This skill should be used when..."), and run `/context` to check usage.
 
+**Parallelization with worktrees.** You can run multiple Claude sessions in parallel using `claude --worktree`. I sometimes spin up 2-3 worktrees for independent tasks, but honestly most of the time I just work in one terminal. My brain can only handle so much multitasking.
+
 **Update CLAUDE.md when Claude makes mistakes.** This is one of the most useful habits I've picked up. When Claude does something wrong, like querying without workspace scope or generating unused methods, I tell it to update CLAUDE.md so it doesn't repeat that mistake. Over time the file becomes a living record of your project's gotchas. I do this regularly and it compounds.
 
 ## Conclusion
