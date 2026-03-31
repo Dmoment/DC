@@ -13,3 +13,111 @@
     @apply font-serif tracking-tight;
   }
 }
+
+@layer components {
+}
+
+/* Ref link — outside @layer to beat .prose a specificity */
+.prose a.ref-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.15s;
+  background: linear-gradient(135deg, #fff1e6 0%, #ffe0c2 100%);
+  color: #D97757;
+  border: 1px solid #f0b896;
+  text-decoration: none;
+}
+.prose a.ref-link:hover {
+  background: linear-gradient(135deg, #ffe0c2 0%, #f0b896 100%);
+  color: #b45309;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(217, 119, 87, 0.2);
+  text-decoration: none;
+}
+
+/* Full-width images in prose (skip inline icons and sized images) */
+.prose img:not(.inline-icon):not(.permission-flow-img) {
+  max-width: 100% !important;
+  width: 100%;
+}
+
+.permission-flow-img {
+  display: block !important;
+  margin: 0 auto !important;
+  width: 340px !important;
+  max-width: 340px !important;
+  height: auto !important;
+}
+
+/* Inline icon for doc links */
+.inline-icon {
+  display: inline !important;
+  width: 14px !important;
+  height: 14px !important;
+  max-width: 14px !important;
+  vertical-align: middle;
+  margin: 0;
+}
+
+/* Table styling for prose */
+.prose table {
+  @apply w-full border-collapse my-6 text-sm;
+}
+.prose thead {
+  @apply bg-stone-100;
+}
+.prose th {
+  @apply px-4 py-3 text-left font-semibold text-stone-700 border-b-2 border-stone-200;
+}
+.prose td {
+  @apply px-4 py-3 border-b border-stone-200;
+}
+.prose tbody tr:hover {
+  @apply bg-stone-50;
+}
+
+/* Collapsible code blocks */
+.collapsible-code {
+  position: relative;
+  max-height: 180px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.collapsible-code.expanded {
+  max-height: none;
+}
+.collapsible-code::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(transparent, #1e1e1e);
+  pointer-events: none;
+}
+.collapsible-code.expanded::after {
+  display: none;
+}
+.code-toggle {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #D97757;
+  background: #1e1e1e;
+  border: none;
+  border-top: 1px solid #333;
+  cursor: pointer;
+  border-radius: 0 0 8px 8px;
+  margin-top: -4px;
+}
+.code-toggle:hover {
+  color: #f0b896;
+}

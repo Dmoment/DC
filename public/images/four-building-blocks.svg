@@ -1,0 +1,111 @@
+<svg viewBox="0 0 720 520" xmlns="http://www.w3.org/2000/svg" style="font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+  <rect width="720" height="520" fill="#FAFAF9" rx="8"/>
+
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a1a1aa"/>
+    </marker>
+  </defs>
+
+  <text x="360" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#2D2D2D">How each building block works</text>
+
+  <!-- COMMANDS ROW -->
+  <rect x="15" y="45" width="690" height="95" rx="8" fill="#fff" stroke="#93c5fd" stroke-width="1.5"/>
+  <rect x="15" y="45" width="90" height="95" rx="8" fill="#DBEAFE"/>
+  <text x="60" y="80" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Commands</text>
+  <text x="60" y="95" text-anchor="middle" font-size="10" fill="#1e40af">Manual</text>
+
+  <rect x="125" y="65" width="110" height="36" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="180" y="80" text-anchor="middle" font-size="11" fill="#555">You type</text>
+  <text x="180" y="93" text-anchor="middle" font-size="11" font-weight="600" fill="#2D2D2D" font-family="monospace">/deploy</text>
+
+  <line x1="235" y1="83" x2="280" y2="83" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="285" y="65" width="140" height="36" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="355" y="80" text-anchor="middle" font-size="11" fill="#555">Claude loads</text>
+  <text x="355" y="93" text-anchor="middle" font-size="10" font-family="monospace" fill="#555">commands/deploy.md</text>
+
+  <line x1="425" y1="83" x2="470" y2="83" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="475" y="65" width="130" height="36" rx="6" fill="#D1FAE5" stroke="#16a34a" stroke-width="1"/>
+  <text x="540" y="80" text-anchor="middle" font-size="11" fill="#065f46">Runs pre-flight checks</text>
+  <text x="540" y="93" text-anchor="middle" font-size="11" font-weight="600" fill="#065f46">kamal deploy</text>
+
+  <text x="640" y="88" font-size="9" fill="#888">You decide when</text>
+
+  <!-- RULES ROW -->
+  <rect x="15" y="155" width="690" height="95" rx="8" fill="#fff" stroke="#fbbf24" stroke-width="1.5"/>
+  <rect x="15" y="155" width="90" height="95" rx="8" fill="#FEF3C7"/>
+  <text x="60" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#92400e">Rules</text>
+  <text x="60" y="205" text-anchor="middle" font-size="10" fill="#92400e">Passive</text>
+
+  <rect x="125" y="175" width="120" height="36" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="185" y="190" text-anchor="middle" font-size="11" fill="#555">You edit</text>
+  <text x="185" y="203" text-anchor="middle" font-size="10" font-family="monospace" fill="#555">app/api/clients.rb</text>
+
+  <line x1="245" y1="193" x2="280" y2="193" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="285" y="175" width="140" height="36" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="355" y="190" text-anchor="middle" font-size="11" fill="#555">Glob matches</text>
+  <text x="355" y="203" text-anchor="middle" font-size="10" font-family="monospace" fill="#555">app/api/**/*.rb</text>
+
+  <line x1="425" y1="193" x2="470" y2="193" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="475" y="175" width="130" height="36" rx="6" fill="#D1FAE5" stroke="#16a34a" stroke-width="1"/>
+  <text x="540" y="190" text-anchor="middle" font-size="11" fill="#065f46">API rules silently</text>
+  <text x="540" y="203" text-anchor="middle" font-size="11" font-weight="600" fill="#065f46">loaded into context</text>
+
+  <text x="640" y="198" font-size="9" fill="#888">Auto on file match</text>
+
+  <!-- SKILLS ROW -->
+  <rect x="15" y="265" width="690" height="95" rx="8" fill="#fff" stroke="#D97757" stroke-width="1.5"/>
+  <rect x="15" y="265" width="90" height="95" rx="8" fill="#FFF1E6"/>
+  <text x="60" y="300" text-anchor="middle" font-size="12" font-weight="600" fill="#9a3412">Skills</text>
+  <text x="60" y="315" text-anchor="middle" font-size="10" fill="#9a3412">Proactive</text>
+
+  <rect x="125" y="285" width="120" height="36" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="185" y="300" text-anchor="middle" font-size="11" fill="#555">Claude writes</text>
+  <text x="185" y="313" text-anchor="middle" font-size="11" fill="#555">Ruby code</text>
+
+  <line x1="245" y1="303" x2="280" y2="303" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="285" y="280" width="140" height="46" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="355" y="297" text-anchor="middle" font-size="11" fill="#555">Matches description:</text>
+  <text x="355" y="311" text-anchor="middle" font-size="9" fill="#555" font-style="italic">"PROACTIVELY use after</text>
+  <text x="355" y="322" text-anchor="middle" font-size="9" fill="#555" font-style="italic">ANY backend code change"</text>
+
+  <line x1="425" y1="303" x2="470" y2="303" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="475" y="285" width="130" height="36" rx="6" fill="#D1FAE5" stroke="#16a34a" stroke-width="1"/>
+  <text x="540" y="300" text-anchor="middle" font-size="11" fill="#065f46">Runs rubocop,</text>
+  <text x="540" y="313" text-anchor="middle" font-size="11" font-weight="600" fill="#065f46">checks N+1, security</text>
+
+  <text x="640" y="308" font-size="9" fill="#888">AI decides when</text>
+
+  <!-- HOOKS ROW -->
+  <rect x="15" y="375" width="690" height="95" rx="8" fill="#fff" stroke="#a78bfa" stroke-width="1.5"/>
+  <rect x="15" y="375" width="90" height="95" rx="8" fill="#EDE9FE"/>
+  <text x="60" y="410" text-anchor="middle" font-size="12" font-weight="600" fill="#5b21b6">Hooks</text>
+  <text x="60" y="425" text-anchor="middle" font-size="10" fill="#5b21b6">Deterministic</text>
+
+  <rect x="125" y="395" width="120" height="36" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="185" y="410" text-anchor="middle" font-size="11" fill="#555">Claude edits</text>
+  <text x="185" y="423" text-anchor="middle" font-size="10" font-family="monospace" fill="#555">client.rb</text>
+
+  <line x1="245" y1="413" x2="280" y2="413" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="285" y="395" width="140" height="36" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="355" y="410" text-anchor="middle" font-size="11" fill="#555">PostToolUse fires</text>
+  <text x="355" y="423" text-anchor="middle" font-size="10" fill="#555">matcher: "Edit"</text>
+
+  <line x1="425" y1="413" x2="470" y2="413" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="475" y="395" width="130" height="36" rx="6" fill="#D1FAE5" stroke="#16a34a" stroke-width="1"/>
+  <text x="540" y="410" text-anchor="middle" font-size="11" fill="#065f46">Shell runs:</text>
+  <text x="540" y="423" text-anchor="middle" font-size="10" font-weight="600" fill="#065f46" font-family="monospace">rubocop -A</text>
+
+  <text x="640" y="418" font-size="9" fill="#888">Always fires</text>
+
+  <!-- Bottom note -->
+  <text x="360" y="500" text-anchor="middle" font-size="11" fill="#888">Commands, Rules, and Skills are markdown files. Hooks are shell commands in settings.json.</text>
+</svg>

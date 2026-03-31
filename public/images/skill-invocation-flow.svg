@@ -1,0 +1,120 @@
+<svg viewBox="0 0 820 440" xmlns="http://www.w3.org/2000/svg" style="font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+  <rect width="820" height="440" fill="#FAFAF9" rx="8"/>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D97757"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <text x="410" y="30" text-anchor="middle" font-size="16" font-weight="600" fill="#2D2D2D">How Skills Get Invoked Automatically</text>
+
+  <!-- PHASE 1: THE SETUP -->
+  <text x="130" y="62" text-anchor="middle" font-size="13" font-weight="600" fill="#9a3412">1. The Setup</text>
+  <text x="130" y="77" text-anchor="middle" font-size="10" fill="#888">Descriptions loaded into context</text>
+
+  <!-- Folder -->
+  <rect x="20" y="90" width="220" height="145" rx="8" fill="#fff" stroke="#D97757" stroke-width="1.5"/>
+  <text x="35" y="112" font-size="11" fill="#888">.claude/skills/</text>
+
+  <!-- File 1 -->
+  <rect x="35" y="122" width="190" height="24" rx="4" fill="#FFF1E6" stroke="#f0b896" stroke-width="1"/>
+  <text x="42" y="138" font-size="10" font-family="monospace" fill="#9a3412">backend-enforcer.md</text>
+
+  <!-- File 2 -->
+  <rect x="35" y="152" width="190" height="24" rx="4" fill="#FFF1E6" stroke="#f0b896" stroke-width="1"/>
+  <text x="42" y="168" font-size="10" font-family="monospace" fill="#9a3412">frontend-enforcer.md</text>
+
+  <!-- File 3 -->
+  <rect x="35" y="182" width="190" height="24" rx="4" fill="#FFF1E6" stroke="#f0b896" stroke-width="1"/>
+  <text x="42" y="198" font-size="10" font-family="monospace" fill="#9a3412">test-enforcer.md</text>
+
+  <!-- Frontmatter callout -->
+  <rect x="15" y="255" width="230" height="90" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="25" y="273" font-size="10" font-family="monospace" fill="#888">---</text>
+  <text x="25" y="288" font-size="10" font-family="monospace" fill="#555">name: backend-enforcer</text>
+  <text x="25" y="303" font-size="10" font-family="monospace" fill="#D97757">description: "PROACTIVELY use</text>
+  <text x="25" y="318" font-size="10" font-family="monospace" fill="#D97757">  after ANY backend code change"</text>
+  <text x="25" y="333" font-size="10" font-family="monospace" fill="#888">---</text>
+
+  <text x="130" y="365" text-anchor="middle" font-size="10" fill="#888">Only descriptions are in context.</text>
+  <text x="130" y="378" text-anchor="middle" font-size="10" fill="#888">Full content stays unloaded.</text>
+
+  <!-- Arrow: Setup to Trigger -->
+  <line x1="245" y1="165" x2="290" y2="165" stroke="#D97757" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- PHASE 2: THE TRIGGER -->
+  <text x="420" y="62" text-anchor="middle" font-size="13" font-weight="600" fill="#9a3412">2. The Trigger</text>
+  <text x="420" y="77" text-anchor="middle" font-size="10" fill="#888">Claude evaluates after each action</text>
+
+  <rect x="300" y="90" width="240" height="155" rx="8" fill="#fff" stroke="#D97757" stroke-width="1.5"/>
+
+  <!-- Claude working -->
+  <text x="420" y="115" text-anchor="middle" font-size="11" fill="#555">Claude is executing a request...</text>
+  <text x="420" y="132" text-anchor="middle" font-size="11" fill="#555">You asked: "Add a widgets endpoint"</text>
+
+  <line x1="320" y1="142" x2="520" y2="142" stroke="#e5e5e5" stroke-width="1"/>
+
+  <text x="420" y="162" text-anchor="middle" font-size="11" fill="#555">Claude writes Ruby code, then</text>
+  <text x="420" y="178" text-anchor="middle" font-size="11" fill="#555">checks skill descriptions...</text>
+
+  <!-- Match box -->
+  <rect x="335" y="192" width="170" height="36" rx="6" fill="#FFF1E6" stroke="#D97757" stroke-width="2"/>
+  <text x="420" y="207" text-anchor="middle" font-size="12" font-weight="700" fill="#9a3412">MATCH DETECTED</text>
+  <text x="420" y="220" text-anchor="middle" font-size="10" fill="#9a3412">"backend code changed"</text>
+
+  <!-- What Claude evaluates -->
+  <rect x="300" y="255" width="240" height="70" rx="6" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+  <text x="310" y="275" font-size="10" fill="#555">Claude asks itself:</text>
+  <text x="310" y="292" font-size="10" fill="#555" font-style="italic">"Did I just modify backend code?"</text>
+  <text x="310" y="309" font-size="10" fill="#555" font-style="italic">"Does a skill description match this?"</text>
+
+  <text x="420" y="347" text-anchor="middle" font-size="10" fill="#888">This is AI judgment, not pattern matching.</text>
+  <text x="420" y="360" text-anchor="middle" font-size="10" fill="#888">Claude reads descriptions and decides.</text>
+
+  <!-- Arrow: Trigger to Action -->
+  <line x1="540" y1="165" x2="580" y2="165" stroke="#D97757" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- PHASE 3: THE ACTION -->
+  <text x="700" y="62" text-anchor="middle" font-size="13" font-weight="600" fill="#16a34a">3. The Action</text>
+  <text x="700" y="77" text-anchor="middle" font-size="10" fill="#888">Full skill loads and executes</text>
+
+  <rect x="590" y="90" width="215" height="155" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+
+  <text x="697" y="115" text-anchor="middle" font-size="11" fill="#555">Full skill content expands</text>
+  <text x="697" y="130" text-anchor="middle" font-size="11" fill="#555">into Claude's context</text>
+
+  <line x1="610" y1="140" x2="785" y2="140" stroke="#e5e5e5" stroke-width="1"/>
+
+  <text x="697" y="158" text-anchor="middle" font-size="11" font-weight="500" fill="#2D2D2D">Skill runs its checks:</text>
+
+  <rect x="610" y="165" width="175" height="20" rx="4" fill="#D1FAE5"/>
+  <text x="620" y="179" font-size="10" fill="#065f46">bundle exec rubocop -A</text>
+
+  <rect x="610" y="189" width="175" height="20" rx="4" fill="#D1FAE5"/>
+  <text x="620" y="203" font-size="10" fill="#065f46">N+1 / Bullet detection</text>
+
+  <rect x="610" y="213" width="175" height="20" rx="4" fill="#D1FAE5"/>
+  <text x="620" y="227" font-size="10" fill="#065f46">Workspace scoping check</text>
+
+  <!-- Result box -->
+  <rect x="590" y="265" width="215" height="95" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="697" y="287" text-anchor="middle" font-size="12" font-weight="600" fill="#065f46">The Result</text>
+
+  <text x="607" y="308" font-size="10" fill="#555">"I detected an N+1 query in</text>
+  <text x="607" y="322" font-size="10" fill="#555">your widgets endpoint. Added</text>
+  <text x="607" y="336" font-size="10" font-family="monospace" fill="#065f46">.includes(:category)</text>
+  <text x="607" y="350" font-size="10" fill="#555">to fix it."</text>
+
+  <!-- Arrow from match to action result -->
+  <line x1="540" y1="210" x2="560" y2="210" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="560" y1="210" x2="560" y2="310" stroke="#16a34a" stroke-width="1.5"/>
+  <line x1="560" y1="310" x2="585" y2="310" stroke="#16a34a" stroke-width="1.5" marker-end="url(#ag)"/>
+
+  <!-- Bottom summary -->
+  <rect x="20" y="400" width="785" height="30" rx="6" fill="#FFF1E6" stroke="#D97757" stroke-width="1"/>
+  <text x="412" y="420" text-anchor="middle" font-size="11" fill="#9a3412">You never asked for this. Claude noticed the right moment, loaded the skill, and acted. That's proactive invocation.</text>
+</svg>

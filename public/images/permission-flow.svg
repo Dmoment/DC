@@ -1,0 +1,46 @@
+<svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" style="font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+  <rect width="520" height="340" fill="#FAFAF9" rx="8"/>
+
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a1a1aa"/>
+    </marker>
+  </defs>
+
+  <!-- Start -->
+  <rect x="160" y="15" width="200" height="36" rx="8" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/>
+  <text x="260" y="30" text-anchor="middle" font-size="10" fill="#888">Claude wants to run:</text>
+  <text x="260" y="43" text-anchor="middle" font-size="11" font-weight="600" fill="#2D2D2D" font-family="monospace">bundle exec rspec</text>
+
+  <!-- Arrow -->
+  <line x1="260" y1="51" x2="260" y2="75" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arw)"/>
+
+  <!-- Check allow -->
+  <polygon points="260,80 370,120 260,160 150,120" fill="#DBEAFE" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="260" y="117" text-anchor="middle" font-size="11" fill="#1e40af">In allow[]?</text>
+
+  <!-- Yes -> Run -->
+  <line x1="370" y1="120" x2="440" y2="120" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arw)"/>
+  <text x="400" y="112" text-anchor="middle" font-size="10" font-weight="600" fill="#16a34a">Yes</text>
+  <rect x="445" y="104" width="60" height="32" rx="6" fill="#D1FAE5" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="475" y="124" text-anchor="middle" font-size="12" font-weight="600" fill="#065f46">Run</text>
+
+  <!-- No -> Check deny -->
+  <line x1="260" y1="160" x2="260" y2="185" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arw)"/>
+  <text x="275" y="177" font-size="10" fill="#888">No</text>
+
+  <polygon points="260,190 370,230 260,270 150,230" fill="#FCE7F3" stroke="#f9a8d4" stroke-width="1.5"/>
+  <text x="260" y="227" text-anchor="middle" font-size="11" fill="#9d174d">In deny[]?</text>
+
+  <!-- Yes -> Block -->
+  <line x1="370" y1="230" x2="440" y2="230" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arw)"/>
+  <text x="400" y="222" text-anchor="middle" font-size="10" font-weight="600" fill="#dc2626">Yes</text>
+  <rect x="445" y="214" width="60" height="32" rx="6" fill="#FECACA" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="475" y="234" text-anchor="middle" font-size="12" font-weight="600" fill="#991b1b">Block</text>
+
+  <!-- No -> Ask user -->
+  <line x1="260" y1="270" x2="260" y2="295" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#arw)"/>
+  <text x="275" y="287" font-size="10" fill="#888">No</text>
+  <rect x="200" y="300" width="120" height="30" rx="6" fill="#DBEAFE" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="260" y="320" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Ask User</text>
+</svg>

@@ -1,0 +1,49 @@
+<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" style="font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+  <rect width="720" height="240" fill="#FAFAF9" rx="8"/>
+  <text x="360" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#2D2D2D">Commands vs Rules vs Skills</text>
+
+  <!-- Commands card -->
+  <rect x="25" y="48" width="210" height="170" rx="10" fill="#fff" stroke="#93c5fd" stroke-width="1.5"/>
+  <rect x="25" y="48" width="210" height="35" rx="10" fill="#DBEAFE"/>
+  <text x="130" y="71" text-anchor="middle" font-size="14" font-weight="600" fill="#1e40af">Commands</text>
+  <text x="40" y="105" font-size="11" fill="#888">Trigger:</text>
+  <text x="100" y="105" font-size="11" font-weight="600" fill="#2D2D2D">You type /cmd</text>
+  <text x="40" y="128" font-size="11" fill="#888">Loading:</text>
+  <text x="100" y="128" font-size="11" fill="#555">Full content on invoke</text>
+  <text x="40" y="151" font-size="11" fill="#888">Mode:</text>
+  <text x="100" y="151" font-size="11" font-weight="600" fill="#1e40af">Manual</text>
+  <text x="40" y="178" font-size="11" fill="#888">Example:</text>
+  <text x="100" y="178" font-size="11" fill="#555" font-family="monospace">/deploy</text>
+  <text x="40" y="203" font-size="11" fill="#888">Analogy:</text>
+  <text x="100" y="203" font-size="11" fill="#555">Light switch</text>
+
+  <!-- Rules card -->
+  <rect x="255" y="48" width="210" height="170" rx="10" fill="#fff" stroke="#fbbf24" stroke-width="1.5"/>
+  <rect x="255" y="48" width="210" height="35" rx="10" fill="#FEF3C7"/>
+  <text x="360" y="71" text-anchor="middle" font-size="14" font-weight="600" fill="#92400e">Rules</text>
+  <text x="270" y="105" font-size="11" fill="#888">Trigger:</text>
+  <text x="330" y="105" font-size="11" font-weight="600" fill="#2D2D2D">File glob match</text>
+  <text x="270" y="128" font-size="11" fill="#888">Loading:</text>
+  <text x="330" y="128" font-size="11" fill="#555">Auto when editing</text>
+  <text x="270" y="151" font-size="11" fill="#888">Mode:</text>
+  <text x="330" y="151" font-size="11" font-weight="600" fill="#92400e">Passive</text>
+  <text x="270" y="178" font-size="11" fill="#888">Example:</text>
+  <text x="330" y="178" font-size="11" fill="#555">Edit *.rb -> rules apply</text>
+  <text x="270" y="203" font-size="11" fill="#888">Analogy:</text>
+  <text x="330" y="203" font-size="11" fill="#555">Post-it on monitor</text>
+
+  <!-- Skills card -->
+  <rect x="485" y="48" width="210" height="170" rx="10" fill="#fff" stroke="#D97757" stroke-width="1.5"/>
+  <rect x="485" y="48" width="210" height="35" rx="10" fill="#FFF1E6"/>
+  <text x="590" y="71" text-anchor="middle" font-size="14" font-weight="600" fill="#9a3412">Skills</text>
+  <text x="500" y="105" font-size="11" fill="#888">Trigger:</text>
+  <text x="560" y="105" font-size="11" font-weight="600" fill="#2D2D2D">Claude decides</text>
+  <text x="500" y="128" font-size="11" fill="#888">Loading:</text>
+  <text x="560" y="128" font-size="11" fill="#555">Description always in ctx</text>
+  <text x="500" y="151" font-size="11" fill="#888">Mode:</text>
+  <text x="560" y="151" font-size="11" font-weight="600" fill="#9a3412">Proactive</text>
+  <text x="500" y="178" font-size="11" fill="#888">Example:</text>
+  <text x="560" y="178" font-size="11" fill="#555">Runs tests after code</text>
+  <text x="500" y="203" font-size="11" fill="#888">Analogy:</text>
+  <text x="560" y="203" font-size="11" fill="#555">Colleague who acts</text>
+</svg>
