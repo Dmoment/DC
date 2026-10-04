@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Chauhan;Deepak;;;
+FN:Deepak Chauhan
+TITLE:Senior Software Engineer
+EMAIL;TYPE=INTERNET,PREF:rishudc119@gmail.com
+URL:https://modestmoron.tech
+X-SOCIALPROFILE;TYPE=github:https://github.com/Dmoment
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/deepak-chauhan-a3426b11a/
+X-SOCIALPROFILE;TYPE=twitter:https://x.com/rishudc119
+NOTE:Ruby on Rails · PostgreSQL · React · System Design. Writing and projects at modestmoron.tech
+END:VCARD
