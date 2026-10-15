@@ -33,26 +33,17 @@ type TimelineItem = {
 
 const experienceData: TimelineItem[] = [
   {
-    id: 'betacraft-readytech',
+    id: 'workato',
     type: 'work',
-    role: 'Senior Software Engineer',
-    company: 'BetaCraft',
-    companyLogo: '/logos/betacraft.png',
-    companyWebsite: 'https://betacraft.com',
-    period: 'Jan 2025 - Present',
+    role: 'Customer Centric Engineer',
+    company: 'Workato',
+    companyLogo: '/logos/workato.png',
+    companyWebsite: 'https://www.workato.com',
+    period: 'Sep 2026 - Present',
     location: 'Remote',
-    employmentType: 'Contract',
-    client: {
-      name: 'ReadyTech',
-      logo: 'https://readytech.io/assets/Uploads/RDY_Logo_Secondary_Standard_L.png',
-      website: 'https://readytech.io'
-    },
-    description: [
-      'Working on a new "Admissions" application for ReadyTech\'s EdTech platform.',
-      'Integrating functionality from their legacy 15-year-old Rails application into the new system.',
-      'Contributing to both the new repo and the existing legacy codebase simultaneously.'
-    ],
-    skills: ['Ruby on Rails', 'Next.js', 'React', 'PostgreSQL']
+    employmentType: 'Full-time',
+    description: [],
+    skills: ['Integration', 'Automation', 'Customer Engineering']
   },
   {
     id: 'betacraft-b2b',
@@ -61,7 +52,7 @@ const experienceData: TimelineItem[] = [
     company: 'BetaCraft',
     companyLogo: '/logos/betacraft.png',
     companyWebsite: 'https://betacraft.com',
-    period: 'Jun 2026 - Present',
+    period: 'Apr 2026 - Sep 2026',
     location: 'Remote',
     employmentType: 'Contract',
     client: {
@@ -75,12 +66,35 @@ const experienceData: TimelineItem[] = [
     },
     description: [
       'Bootstrapped the Slice360 backend (Node.js, Express, TypeScript, PostgreSQL) for B2B\'s merchant platform, from scaffold to production on Railway.',
+      'Built a voice-to-voice AI customer assistant: merchants provision an ElevenLabs conversational agent on their own phone number, and post-call webhooks feed transcripts, call analysis and FAQ knowledge back into the app.',
+      'Shipped "Ask Slice", an in-app assistant on Gemini that routes questions to per-domain agents (analytics, website, capital, batches) and answers only from the merchant\'s own data, with Langfuse for prompt management and tracing.',
       'Built the Clover and Valor POS integrations: multi-account connections, a scheduled sync engine with retry handling, and live sales, item, category, customer and employee analytics.',
       'Integrated Salesforce two ways: mirrored batch reports, capital advances and support cases into Postgres, and drove tech-call scheduling off Salesforce free/busy calendars.',
-      'Designed the v2 merchant capital offer engine as a state machine, replacing the Plaid/DocuSign v1 flow, and wired it end to end in the PWA.',
-      'Shipped the React PWA features on top: phone-OTP login, multi-tenant merchant switching, device-aware sessions, Intercom support, and a website intake and booking flow.'
+      'Designed the v2 merchant capital offer engine as a state machine and shipped the React PWA features on top: phone-OTP login, multi-tenant merchant switching, device-aware sessions and Intercom support.'
     ],
-    skills: ['Node.js', 'TypeScript', 'Express', 'PostgreSQL', 'React', 'Salesforce', 'Clover API']
+    skills: ['Node.js', 'TypeScript', 'PostgreSQL', 'React', 'ElevenLabs', 'Langfuse', 'Gemini', 'Salesforce', 'Clover API']
+  },
+  {
+    id: 'betacraft-readytech',
+    type: 'work',
+    role: 'Senior Software Engineer',
+    company: 'BetaCraft',
+    companyLogo: '/logos/betacraft.png',
+    companyWebsite: 'https://betacraft.com',
+    period: 'Jan 2025 - Apr 2026',
+    location: 'Remote',
+    employmentType: 'Contract',
+    client: {
+      name: 'ReadyTech',
+      logo: 'https://readytech.io/assets/Uploads/RDY_Logo_Secondary_Standard_L.png',
+      website: 'https://readytech.io'
+    },
+    description: [
+      'Built a new "Admissions" application for ReadyTech\'s EdTech platform.',
+      'Integrated functionality from their legacy 15-year-old Rails application into the new system.',
+      'Contributed to both the new repo and the existing legacy codebase simultaneously.'
+    ],
+    skills: ['Ruby on Rails', 'Next.js', 'React', 'PostgreSQL']
   },
   {
     id: 'famaash',

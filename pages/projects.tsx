@@ -5,14 +5,14 @@ import ProjectCard from '../components/ProjectCard';
 const clientProjects = [
   {
     title: "ReadyTech",
-    description: "Building a new 'Admissions' application for ReadyTech's EdTech platform. Integrating functionality from their legacy 15-year-old Rails application into a modern system.",
+    description: "Built a new 'Admissions' application for ReadyTech's EdTech platform, integrating functionality from their legacy 15-year-old Rails application into a modern system.",
     tags: ["Ruby on Rails", "Next.js", "React", "PostgreSQL"],
     link: "https://readytech.io",
   },
   {
     title: "B2B Puerto Rico · Slice360",
-    description: "Built the Slice360 merchant platform backend from scratch and its React PWA features: Clover and Valor POS sync with live analytics, Salesforce mirroring, a capital offer engine, and phone-OTP multi-tenant auth.",
-    tags: ["Node.js", "TypeScript", "PostgreSQL", "React", "Salesforce"],
+    description: "Built the Slice360 merchant platform backend from scratch: a voice-to-voice AI customer assistant on ElevenLabs, a Gemini-powered in-app assistant traced with Langfuse, Clover and Valor POS sync with live analytics, Salesforce mirroring, and a capital offer engine.",
+    tags: ["Node.js", "TypeScript", "ElevenLabs", "Langfuse", "PostgreSQL", "React"],
     link: "https://b2bpr.ai",
   },
   {

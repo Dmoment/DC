@@ -198,7 +198,7 @@ const CardPage: NextPage = () => {
         <section className="text-sm text-anthropic-secondary leading-relaxed">
           <p>
             Senior Software Engineer, seven years in. Backend-leaning full stack: Ruby on Rails, PostgreSQL, React and system design.
-            Currently building admissions software for ReadyTech with BetaCraft, and KhataTrack on the side.
+            Currently a Customer Centric Engineer at Workato, building KhataTrack on the side.
             {' '}
             <Link href="/"><a className="text-anthropic-text underline decoration-anthropic-accent underline-offset-4 hover:text-anthropic-accent">More on the home page</a></Link>.
           </p>
