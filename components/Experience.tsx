@@ -55,6 +55,34 @@ const experienceData: TimelineItem[] = [
     skills: ['Ruby on Rails', 'Next.js', 'React', 'PostgreSQL']
   },
   {
+    id: 'betacraft-b2b',
+    type: 'work',
+    role: 'Senior Software Engineer',
+    company: 'BetaCraft',
+    companyLogo: '/logos/betacraft.png',
+    companyWebsite: 'https://betacraft.com',
+    period: 'Jun 2026 - Present',
+    location: 'Remote',
+    employmentType: 'Contract',
+    client: {
+      name: 'B2B Puerto Rico',
+      logo: '/logos/b2b.png',
+      website: 'https://b2bpr.ai'
+    },
+    product: {
+      name: 'Slice360',
+      logo: '/logos/slice360.svg'
+    },
+    description: [
+      'Bootstrapped the Slice360 backend (Node.js, Express, TypeScript, PostgreSQL) for B2B\'s merchant platform, from scaffold to production on Railway.',
+      'Built the Clover and Valor POS integrations: multi-account connections, a scheduled sync engine with retry handling, and live sales, item, category, customer and employee analytics.',
+      'Integrated Salesforce two ways: mirrored batch reports, capital advances and support cases into Postgres, and drove tech-call scheduling off Salesforce free/busy calendars.',
+      'Designed the v2 merchant capital offer engine as a state machine, replacing the Plaid/DocuSign v1 flow, and wired it end to end in the PWA.',
+      'Shipped the React PWA features on top: phone-OTP login, multi-tenant merchant switching, device-aware sessions, Intercom support, and a website intake and booking flow.'
+    ],
+    skills: ['Node.js', 'TypeScript', 'Express', 'PostgreSQL', 'React', 'Salesforce', 'Clover API']
+  },
+  {
     id: 'famaash',
     type: 'work',
     role: 'Founding Engineer',

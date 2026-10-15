@@ -10,6 +10,12 @@ const clientProjects = [
     link: "https://readytech.io",
   },
   {
+    title: "B2B Puerto Rico · Slice360",
+    description: "Built the Slice360 merchant platform backend from scratch and its React PWA features: Clover and Valor POS sync with live analytics, Salesforce mirroring, a capital offer engine, and phone-OTP multi-tenant auth.",
+    tags: ["Node.js", "TypeScript", "PostgreSQL", "React", "Salesforce"],
+    link: "https://b2bpr.ai",
+  },
+  {
     title: "Fullscript",
     description: "Optimized wholesale checkout and core GraphQL search queries, cutting response time from 20s to 2s. Managed Emerson Ecologies data migration with optimized SQL queries.",
     tags: ["Ruby on Rails", "GraphQL", "PostgreSQL", "React"],
