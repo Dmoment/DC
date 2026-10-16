@@ -6,6 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail, Download, Share2, Check, Copy, QrCode as QrIcon, X, ArrowUpRight } from 'lucide-react';
 import QrCode from '../components/QrCode';
 import styles from '../styles/Card.module.css';
+import { GSTIN, business } from '../lib/business';
 
 const CARD_URL = 'https://modestmoron.tech/card';
 
@@ -14,17 +15,6 @@ const links = [
   { label: 'GitHub', value: 'github.com/Dmoment', href: 'https://github.com/Dmoment', Icon: Github },
   { label: 'LinkedIn', value: 'in/deepak-chauhan-a3426b11a', href: 'https://www.linkedin.com/in/deepak-chauhan-a3426b11a/', Icon: Linkedin },
   { label: 'X', value: '@rishudc119', href: 'https://x.com/rishudc119', Icon: Twitter },
-];
-
-const GSTIN = '09BYTPC0935J1Z3';
-
-// Public GST register entry for the GSTIN above (gst.gov.in).
-const business = [
-  { label: 'GSTIN', value: GSTIN },
-  { label: 'Legal name', value: 'Deepak Chauhan' },
-  { label: 'Entity', value: 'Proprietorship · Regular taxpayer' },
-  { label: 'Registered', value: '21 Nov 2022 · Active' },
-  { label: 'State', value: 'Uttar Pradesh (09) · Kanpur' },
 ];
 
 const CardPage: NextPage = () => {

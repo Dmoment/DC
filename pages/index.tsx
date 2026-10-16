@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import ProjectCard from '../components/ProjectCard';
 import BlogCard from '../components/BlogCard';
 import Experience from '../components/Experience';
+import WorkWithMe from '../components/WorkWithMe';
 import { getSortedPostsData } from '../lib/mdx';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -26,6 +27,8 @@ const Home: NextPage<HomeProps> = ({ allPostsData }) => {
       <Hero />
       
       <Experience />
+
+      <WorkWithMe />
 
       <section className="py-20">
         <div className="flex justify-between items-end mb-12 border-b border-black/5 pb-6">

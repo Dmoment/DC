@@ -24,11 +24,11 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
         >
-          Hey, I&apos;m Deepak. I love exploring the unconventional, tackling problems the hard way, and diving deep into what fascinates me. The best part of this craft? We get to command machines to do remarkable things.
+          Hey, I&apos;m Deepak. I love exploring the unconventional, tackling problems the hard way, and diving deep into what fascinates me. Lately that means building with AI: voice agents that answer a business&apos;s phone, LLM assistants that reason over real data, and the tracing that makes them trustworthy in production. The best part of this craft? We get to command machines to do remarkable things, and now they talk back.
         </motion.p>
 
         <motion.div
-          className="flex gap-4"
+          className="flex flex-wrap gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
@@ -38,10 +38,13 @@ export default function Hero() {
               View Work
             </a>
           </Link>
+          <a href="#work-with-me" className="inline-flex items-center px-6 py-3 border border-anthropic-text/20 text-anthropic-text font-medium rounded-md hover:bg-black/5 transition-colors group">
+            Work with me
+            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
           <Link href="/blog">
-            <a className="inline-flex items-center px-6 py-3 border border-anthropic-text/20 text-anthropic-text font-medium rounded-md hover:bg-black/5 transition-colors group">
+            <a className="inline-flex items-center px-6 py-3 text-anthropic-secondary font-medium rounded-md hover:text-anthropic-text hover:bg-black/5 transition-colors">
               Read Blog
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </Link>
         </motion.div>
