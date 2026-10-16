@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { Github, Linkedin, Twitter, Mail, Download, Share2, Check, QrCode as QrIcon, X, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, Download, Share2, Check, Copy, QrCode as QrIcon, X, ArrowUpRight } from 'lucide-react';
 import QrCode from '../components/QrCode';
 import styles from '../styles/Card.module.css';
 
@@ -16,9 +16,21 @@ const links = [
   { label: 'X', value: '@rishudc119', href: 'https://x.com/rishudc119', Icon: Twitter },
 ];
 
+const GSTIN = '09BYTPC0935J1Z3';
+
+// Public GST register entry for the GSTIN above (gst.gov.in).
+const business = [
+  { label: 'GSTIN', value: GSTIN },
+  { label: 'Legal name', value: 'Deepak Chauhan' },
+  { label: 'Entity', value: 'Proprietorship · Regular taxpayer' },
+  { label: 'Registered', value: '21 Nov 2022 · Active' },
+  { label: 'State', value: 'Uttar Pradesh (09) · Kanpur' },
+];
+
 const CardPage: NextPage = () => {
   const [flipped, setFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [gstCopied, setGstCopied] = useState(false);
   const [canShare, setCanShare] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
   const [unit, setUnit] = useState(0);
@@ -68,6 +80,16 @@ const CardPage: NextPage = () => {
       setTimeout(() => setCopied(false), 1800);
     } catch {
       // clipboard unavailable; nothing else sensible to do
+    }
+  };
+
+  const copyGstin = async () => {
+    try {
+      await navigator.clipboard.writeText(GSTIN);
+      setGstCopied(true);
+      setTimeout(() => setGstCopied(false), 1800);
+    } catch {
+      // clipboard unavailable
     }
   };
 
@@ -193,6 +215,31 @@ const CardPage: NextPage = () => {
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* Business details, for clients who need them on an invoice or contract */}
+        <section>
+          <h2 className="font-mono text-xs uppercase tracking-widest text-anthropic-secondary mb-3">Business details</h2>
+          <dl className="divide-y divide-black/5 border-y border-black/5">
+            {business.map(({ label, value }) => (
+              <div key={label} className="flex items-center gap-4 py-3">
+                <dt className="w-24 text-sm text-anthropic-secondary shrink-0">{label}</dt>
+                <dd className="flex-grow font-mono text-sm truncate">{value}</dd>
+                {label === 'GSTIN' && (
+                  <button
+                    onClick={copyGstin}
+                    aria-label="Copy GSTIN"
+                    className="p-1.5 -mr-1.5 rounded-md text-anthropic-secondary hover:text-anthropic-accent hover:bg-black/5 transition-colors shrink-0"
+                  >
+                    {gstCopied ? <Check size={16} className="text-anthropic-accent" /> : <Copy size={16} />}
+                  </button>
+                )}
+              </div>
+            ))}
+          </dl>
+          <p className="mt-3 text-xs text-anthropic-secondary leading-relaxed">
+            Contract work is invoiced under this GSTIN. Registered address available on request.
+          </p>
         </section>
 
         <section className="text-sm text-anthropic-secondary leading-relaxed">
